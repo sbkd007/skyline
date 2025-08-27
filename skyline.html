@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skyline Serenity | Luxury Living in the City of Saints</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS for video background and smooth scrolling */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        
+        .hero-overlay {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Loading screen styles */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f8f4e9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .loading-logo {
+            width: 300px;
+            margin-bottom: 30px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        .loading-bar {
+            width: 300px;
+            height: 4px;
+            background-color: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .loading-progress {
+            height: 100%;
+            width: 0%;
+            background-color: #8b6b4a;
+            animation: loading 4s linear forwards;
+        }
+        
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Custom amenities grid */
+        .amenity-card {
+            transition: all 0.3s ease;
+        }
+        
+        .amenity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Gallery hover effect */
+        .gallery-item {
+            transition: all 0.3s ease;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .gallery-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item img {
+            transition: all 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <img src="skyline_bg_logo.png" alt="Skylilne Serenity Logo" class="loading-logo">
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+
+    <!-- Header/Navigation -->
+    <header class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-gray-800">
+                    <span class="text-amber-800">Skyline</span> Serenity
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-amber-700 transition" onclick="event.preventDefault(); document.querySelector('#home').scrollIntoView({ behavior: 'smooth', block: 'start' });">Home</a>
+                    <a href="#about" class="text-gray-700 hover:text-amber-700 transition" onclick="event.preventDefault(); document.querySelector('#about').scrollIntoView({ behavior: 'smooth', block: 'start' });">About</a>
+                    <a href="#gallery" class="text-gray-700 hover:text-amber-700 transition" onclick="event.preventDefault(); document.querySelector('#gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });">Gallery</a>
+                    <a href="#amenities" class="text-gray-700 hover:text-amber-700 transition" onclick="event.preventDefault(); document.querySelector('#amenities').scrollIntoView({ behavior: 'smooth', block: 'start' });">Amenities</a>
+                    <a href="#inventory" class="text-gray-700 hover:text-amber-700 transition" onclick="event.preventDefault(); document.querySelector('#inventory').scrollIntoView({ behavior: 'smooth', block: 'start' });">Inventory</a>
+                    <a href="#contact" class="text-gray-700 hover:text-amber-700 transition" onclick="event.preventDefault(); document.querySelector('#contact').scrollIntoView({ behavior: 'smooth', block: 'start' });">Contact</a>
+                </nav>
+                
+                <button class="md:hidden focus:outline-none">
+                    <i class="fas fa-bars text-2xl text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Video Background -->
+    <section id="home" class="relative h-screen flex items-center justify-center">
+        <video autoplay muted loop class="video-background">
+            <source src="skyline.mp4" type="video/mp4">
+        </video>
+        
+        <div class="hero-overlay absolute inset-0"></div>
+        
+        <div class="container mx-auto px-6 z-10 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Experience Luxury Living</h1>
+            <p class="text-xl md:text-2xl text-white mb-8 max-w-3xl mx-auto">
+                A blend of luxury, comfort, and serenity in the heart of the City of Saints
+            </p>
+            <button class="bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105" onclick="document.querySelector('#contact').scrollIntoView({ behavior: 'smooth', block: 'start' })">
+                Book a Visit
+            </button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">About Skyline Serenity</h2>
+                    <p class="text-gray-600 mb-4">
+                        Skyline Serenity is a luxurious twin tower project with contemporary design and eye-catching architecture located in the heart of the City of Saints. 
+                    </p>
+                    <p class="text-gray-600 mb-4">
+                        Paired with the serenity of nature and world-class necessities, this marvelous project offers a premium lifestyle experience at both residential and commercial levels.
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        Our vision is to create spaces that inspire and elevate your living experience, combining modern aesthetics with timeless comfort.
+                    </p>
+                    <div class="flex space-x-4">
+                        <div class="bg-amber-100 p-4 rounded-lg">
+                            <h3 class="font-bold text-amber-800">24/7 Security</h3>
+                            <p class="text-sm text-gray-600">Gated community with advanced surveillance</p>
+                        </div>
+                        <div class="bg-amber-100 p-4 rounded-lg">
+                            <h3 class="font-bold text-amber-800">Premium Location</h3>
+                            <p class="text-sm text-gray-600">Heart of the city with all conveniences</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="relative rounded-xl overflow-hidden shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Skyline Serenity Exterior" class="w-full h-auto">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
+                            <h3 class="text-white font-bold text-xl">Modern Architecture</h3>
+                            <p class="text-gray-200">Designed by award-winning architects</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Gallery</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg animate-fadeInUp">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1400&q=80" 
+                         alt="Luxury Living Room" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold text-gray-800">Elegant Living Spaces</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                         alt="Modern Kitchen" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold text-gray-800">Gourmet Kitchens</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                         alt="Luxury Bedroom" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold text-gray-800">Tranquil Bedrooms</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Swimming Pool" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold text-gray-800">Infinity Pool</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://media.istockphoto.com/id/502484668/photo/empty-gym-room.jpg?s=612x612&w=0&k=20&c=L2PRyI7OU9YwqBn9VPNQ45H9oaGIf4D6VK2onUu6dD0=" 
+                         alt="Gym" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold text-gray-800">Fitness Center</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Lobby" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold text-gray-800">Grand Lobby</h3>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section id="amenities" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">World-Class Amenities</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="amenity-card bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-amber-700 text-4xl mb-4">
+                        <i class="fas fa-swimming-pool"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-800 mb-2">Infinity Pool</h3>
+                    <p class="text-gray-600">Stunning rooftop infinity pool with panoramic city views</p>
+                </div>
+                
+                <div class="amenity-card bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-amber-700 text-4xl mb-4">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-800 mb-2">Fitness Center</h3>
+                    <p class="text-gray-600">State-of-the-art gym with personal trainers available</p>
+                </div>
+                
+                <div class="amenity-card bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-amber-700 text-4xl mb-4">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-800 mb-2">Spa & Wellness</h3>
+                    <p class="text-gray-600">Luxury spa with massage rooms, sauna, and steam rooms</p>
+                </div>
+                
+                <div class="amenity-card bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-amber-700 text-4xl mb-4">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-800 mb-2">Fine Dining</h3>
+                    <p class="text-gray-600">Gourmet restaurants and rooftop bar with city views</p>
+                </div>
+                
+                <div class="amenity-card bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-amber-700 text-4xl mb-4">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-800 mb-2">Kids Play Area</h3>
+                    <p class="text-gray-600">Safe and fun play zone for children with supervision</p>
+                </div>
+                
+                <div class="amenity-card bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-amber-700 text-4xl mb-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-800 mb-2">24/7 Security</h3>
+                    <p class="text-gray-600">Gated community with CCTV surveillance and security personnel</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inventory Section -->
+    <section id="inventory" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Available Units</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="border border-gray-200 rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://lntmediaservicestore.blob.core.windows.net/lntrealtyproductionfiles/lntwebapps/typology/2bhk-flats-in-mumbai/src/img/desktop-banner-img-3.webp" 
+                         alt="2BHK Apartment" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl text-gray-800 mb-2">2BHK Luxury Apartment</h3>
+                        <p class="text-gray-600 mb-4">1,250 sq.ft. with balcony and premium finishes</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-amber-700">$450,000</span>
+                            <button class="bg-amber-700 hover:bg-amber-800 text-white py-2 px-4 rounded-full text-sm transition">
+                                Enquire Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxPz4RVQz9VH1nLuIQ3aKLh448OEfch8_nuA&s" 
+                         alt="3BHK Apartment" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl text-gray-800 mb-2">3BHK Premium Apartment</h3>
+                        <p class="text-gray-600 mb-4">1,850 sq.ft. with terrace and designer interiors</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-amber-700">$650,000</span>
+                            <button class="bg-amber-700 hover:bg-amber-800 text-white py-2 px-4 rounded-full text-sm transition">
+                                Enquire Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://aardeesrealty.com/wp-content/uploads/2018/12/image001.jpg" 
+                         alt="Penthouse" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl text-gray-800 mb-2">4BHK Penthouse</h3>
+                        <p class="text-gray-600 mb-4">3,200 sq.ft. with private pool and panoramic views</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-amber-700">$1,200,000</span>
+                            <button class="bg-amber-700 hover:bg-amber-800 text-white py-2 px-4 rounded-full text-sm transition">
+                                Enquire Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="1BHK Apartment" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl text-gray-800 mb-2">1BHK Starter Apartment</h3>
+                        <p class="text-gray-600 mb-4">850 sq.ft. with modern amenities and city view</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-amber-700">$320,000</span>
+                            <button class="bg-amber-700 hover:bg-amber-800 text-white py-2 px-4 rounded-full text-sm transition">
+                                Enquire Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                         alt="Duplex" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl text-gray-800 mb-2">3BHK Duplex Apartment</h3>
+                        <p class="text-gray-600 mb-4">2,400 sq.ft. with private garden and two levels</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-amber-700">$850,000</span>
+                            <button class="bg-amber-700 hover:bg-amber-800 text-white py-2 px-4 rounded-full text-sm transition">
+                                Enquire Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Contact Us</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6">Get in Touch</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="text-amber-700 text-xl mr-4 mt-1">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Address</h4>
+                                <p class="text-gray-600">123 Serene Avenue, City of Saints</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="text-amber-700 text-xl mr-4 mt-1">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Phone</h4>
+                                <p class="text-gray-600">+1 (555) 123-4567</p>
+                                <p class="text-gray-600">+1 (555) 987-6543</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="text-amber-700 text-xl mr-4 mt-1">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Email</h4>
+                                <p class="text-gray-600">info@serenetower.com</p>
+                                <p class="text-gray-600">sales@serenetower.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="text-amber-700 text-xl mr-4 mt-1">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Office Hours</h4>
+                                <p class="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                <p class="text-gray-600">Saturday: 10:00 AM - 4:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Follow Us</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-gray-200 hover:bg-amber-700 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-gray-700 transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-gray-200 hover:bg-amber-700 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-gray-700 transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="bg-gray-200 hover:bg-amber-700 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-gray-700 transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-gray-200 hover:bg-amber-700 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-gray-700 transition">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Location</h3>
+                        <div class="rounded-xl overflow-hidden shadow-lg">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d215.50377669158556!2d71.46584076620249!3d30.206822740043915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1stoly%20peer%20musjid%20kotla%20toly%20khan%20multan!5e0!3m2!1sen!2s!4v1756269355061!5m2!1sen!2s" 
+                                    width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6">Send Us a Message</h3>
+                    
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder="Your Name">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder="your.email@example.com">
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-gray-700 font-medium mb-2">Phone Number</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder="+1 (___) ___-____">
+                        </div>
+                        
+                        <div>
+                            <label for="query" class="block text-gray-700 font-medium mb-2">Your Query</label>
+                            <select id="query" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                                <option value="">Select a topic</option>
+                                <option value="sales">Sales Inquiry</option>
+                                <option value="booking">Site Visit Booking</option>
+                                <option value="general">General Information</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder="Your message..."></textarea>
+                        </div>
+                        
+                        <div>
+                            <button type="submit" class="bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 px-6 rounded-lg w-full transition">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-8 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-4">
+                        <span class="text-amber-500">Skyline</span> Serenity
+                    </h3>
+                    <p class="text-gray-400 max-w-md">
+                        A blend of luxury, comfort, and serenity in the heart of the City of Saints. Experience premium living at its finest.
+                    </p>
+                </div>
+                
+                <div class="mb-8 md:mb-0">
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-amber-500 transition">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-amber-500 transition">About</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-amber-500 transition">Gallery</a></li>
+                        <li><a href="#amenities" class="text-gray-400 hover:text-amber-500 transition">Amenities</a></li>
+                        <li><a href="#inventory" class="text-gray-400 hover:text-amber-500 transition">Inventory</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-amber-500 transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">
+                        Subscribe to get updates on new launches and special offers.
+                    </p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full">
+                        <button class="bg-amber-600 hover:bg-amber-700 px-4 py-2 rounded-r-lg transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">
+                    &copy; 2023 Serene Tower. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-amber-500 transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-amber-500 transition">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-amber-500 transition">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hide loading screen after 4 seconds
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loading-screen').style.display = 'none';
+            }, 4000);
+
+            // Initialize Intersection Observer for gallery items
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            galleryItems.forEach(item => {
+                observer.observe(item);
+            });
+        });
+        
+        // Mobile menu toggle functionality
+        document.querySelector('header button').addEventListener('click', function() {
+            const nav = document.querySelector('header nav');
+            nav.classList.toggle('hidden');
+            nav.classList.toggle('flex');
+            nav.classList.toggle('flex-col');
+            nav.classList.toggle('absolute');
+            nav.classList.toggle('top-16');
+            nav.classList.toggle('left-0');
+            nav.classList.toggle('right-0');
+            nav.classList.toggle('bg-white');
+            nav.classList.toggle('p-4');
+            nav.classList.toggle('space-y-4');
+            nav.classList.toggle('space-x-8');
+            nav.classList.toggle('shadow-md');
+        });
+        
+        // Close mobile menu when a link is clicked and scroll to section
+        document.querySelectorAll('header nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                // Close mobile menu
+                const nav = document.querySelector('header nav');
+                if (!nav.classList.contains('hidden')) {
+                    nav.classList.add('hidden');
+                    nav.classList.remove('flex');
+                }
+                
+                // Scroll to section
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 80, // Adjust for header height
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
